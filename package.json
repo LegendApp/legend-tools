@@ -2,6 +2,7 @@
     "name": "@legendapp/tools",
     "description": "@legendapp/tools",
     "version": "1.0.0",
+    "sideEffects": false,
     "license": "MIT",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
