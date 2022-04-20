@@ -1,8 +1,8 @@
 {
     "name": "@legendapp/tools",
     "description": "@legendapp/tools",
-    "version": "1.0.0",
     "sideEffects": false,
+    "version": "1.0.1",
     "license": "MIT",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
