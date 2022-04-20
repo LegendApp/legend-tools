@@ -33,7 +33,9 @@
     },
     "author": "Legend <contact@legendapp.com> (https://github.com/LegendApp)",
     "keywords": [
-        "react native react-native animations transitions framer motion framer-motion"
+        "react",
+        "react-native",
+        "hooks"
     ],
     "module": "dist/legend-tools.esm.js",
     "size-limit": [
