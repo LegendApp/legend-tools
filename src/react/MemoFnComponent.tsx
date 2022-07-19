@@ -67,9 +67,11 @@ export function MemoFnComponent<T extends ComponentType<any>>(Component: T, onEr
     onError = onError || _config.onError;
     let out = Component as any;
     if (onError) {
-        out = (props: any) => <ErrorBoundary>{createElement(Component, Object.assign({ onError }, props))}</ErrorBoundary>;
+        out = (props: any) => (
+            <ErrorBoundary>{createElement(Component, Object.assign({ onError }, props))}</ErrorBoundary>
+        );
     }
-    return (memo(out) as unknown) as T;
+    return memo(out) as unknown as T;
 }
 
 export function MemoFnComponentWithRef<T extends ComponentType<any>>(Component: T, onError?: TypeOnError): T {
@@ -81,5 +83,5 @@ export function MemoFnComponentWithRef<T extends ComponentType<any>>(Component: 
         out = forwardRef(Wrapped);
     }
 
-    return (memo(out) as unknown) as T;
+    return memo(out) as unknown as T;
 }

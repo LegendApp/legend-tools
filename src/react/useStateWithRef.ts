@@ -1,7 +1,9 @@
 import { Dispatch, MutableRefObject, SetStateAction, useCallback, useRef, useState } from 'react';
-import { isFunction } from './is';
+import { isFunction } from '../is';
 
-export function useStateWithRef<T>(initialValue?: T | (() => T)): [T | undefined, Dispatch<SetStateAction<T>>, MutableRefObject<T>] {
+export function useStateWithRef<T>(
+    initialValue?: T | (() => T)
+): [T | undefined, Dispatch<SetStateAction<T>>, MutableRefObject<T>] {
     const [value, setValue] = useState(initialValue);
     const ref = useRef<T>(value);
 

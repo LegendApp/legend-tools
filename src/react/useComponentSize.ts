@@ -1,5 +1,5 @@
 import { RefObject, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-import { ResizeObserver } from './ResizeObserver';
+import { ResizeObserver } from '../ResizeObserver';
 import { useForceRender } from './useForceRender';
 
 function getSize(el: HTMLElement): { width: number; height: number } {
@@ -14,7 +14,10 @@ function getSize(el: HTMLElement): { width: number; height: number } {
           };
 }
 
-export const useComponentSize = function useComponentSize(ref: RefObject<HTMLElement>): { width: number; height: number } {
+export const useComponentSize = function useComponentSize(ref: RefObject<HTMLElement>): {
+    width: number;
+    height: number;
+} {
     const refSize = useRef<{ width: number; height: number }>({ width: 0, height: 0 });
     const fr = useForceRender();
 

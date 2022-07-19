@@ -2,34 +2,34 @@
     "name": "@legendapp/tools",
     "description": "@legendapp/tools",
     "sideEffects": false,
-    "version": "1.0.3",
+    "private": true,
+    "version": "2.0.0-alpha.3",
     "license": "MIT",
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "main": "./index.js",
+    "types": "./index.d.ts",
     "files": [
-        "dist",
-        "src"
+        "**"
     ],
-    "engines": {
-        "node": ">=10"
+    "exports": {
+        ".": "./index.js",
+        "./react": "./react/index.js"
     },
     "scripts": {
-        "start": "tsdx watch",
-        "build": "tsdx build",
-        "test": "tsdx test --passWithNoTests",
-        "prepare": "tsdx build",
+        "clean": "rimraf dist",
+        "prebuild": "npm run clean",
+        "build": "tsc && cp package.json dist/package.json && rm dist/*.tsbuildinfo && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.scripts=undefined; this['size-limit']=undefined; this.prettier=undefined;\"",
+        "test": "jest",
         "size": "size-limit",
-        "analyze": "size-limit --why"
+        "analyze": "size-limit --why",
+        "publish": "npm run build && cd dist && npm publish"
     },
     "peerDependencies": {
         "react": ">=16"
     },
-    "prettier": {
-        "printWidth": 140,
-        "semi": true,
-        "singleQuote": true,
-        "trailingComma": "es5",
-        "tabWidth": 4
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
     },
     "author": "Legend <contact@legendapp.com> (https://github.com/LegendApp)",
     "keywords": [
@@ -37,7 +37,6 @@
         "react-native",
         "hooks"
     ],
-    "module": "dist/legend-tools.esm.js",
     "size-limit": [
         {
             "path": "dist/legend-tools.cjs.production.min.js",
@@ -52,9 +51,10 @@
         "@size-limit/preset-small-lib": "^7.0.8",
         "@types/react": "^17.0.39",
         "@types/react-dom": "^17.0.13",
-        "husky": "^7.0.4",
+        "json": "^11.0.0",
+        "prettier": "^2.7.1",
+        "rimraf": "^3.0.2",
         "size-limit": "^7.0.8",
-        "tsdx": "^0.14.1",
         "tslib": "^2.3.1",
         "typescript": "^4.6.2"
     },
