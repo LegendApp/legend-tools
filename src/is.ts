@@ -16,3 +16,6 @@ export function isBoolean(obj: unknown): obj is boolean {
 export function isFunction(obj: unknown): obj is Function {
     return typeof obj === 'function';
 }
+export function isObjectEmpty(obj: object) {
+    return obj && isObject(obj) && Object.keys(obj).length === 0;
+}
