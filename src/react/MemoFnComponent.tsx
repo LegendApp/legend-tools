@@ -1,4 +1,4 @@
-import React, { Component, ComponentType, createElement, forwardRef, memo, ReactNode } from 'react';
+import React, { Component, ComponentType, createElement, FC, forwardRef, memo, ReactNode } from 'react';
 
 type TypeOnError = (error: Error, info: ErrorInfo) => boolean | void;
 
@@ -16,15 +16,16 @@ export interface ErrorInfo {
 
 export interface Config {
     onError?: TypeOnError;
+    ErrorBoundary?: any;
 }
 
 let _config: Config = {};
 
-export function ConfigureMemoFnComponent(config: Config) {
+export function configureMemoFnComponent(config: Config) {
     _config = config || {};
 }
 
-class ErrorBoundary extends Component<PropsErrorBoundary, StateErrorBoundary> {
+class DefaultErrorBoundary extends Component<PropsErrorBoundary, StateErrorBoundary> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -67,18 +68,19 @@ export function MemoFnComponent<T extends ComponentType<any>>(Component: T, onEr
     onError = onError || _config.onError;
     let out = Component as any;
     if (onError) {
-        out = (props: any) => (
-            <ErrorBoundary>{createElement(Component, Object.assign({ onError }, props))}</ErrorBoundary>
-        );
+        const ErrorBoundary = _config.ErrorBoundary || DefaultErrorBoundary;
+        out = (props: any) => <ErrorBoundary onError={onError}>{createElement(Component, props)}</ErrorBoundary>;
     }
     return memo(out) as unknown as T;
 }
 
 export function MemoFnComponentWithRef<T extends ComponentType<any>>(Component: T, onError?: TypeOnError): T {
     let out = Component as any;
-    if (onError || _config.onError) {
+    onError = onError || _config.onError;
+    if (onError) {
+        const ErrorBoundary = _config.ErrorBoundary || DefaultErrorBoundary;
         const Wrapped = (props: any, ref: any) => (
-            <ErrorBoundary>{createElement(Component, Object.assign({ onError, ref }, props))}</ErrorBoundary>
+            <ErrorBoundary onError={onError}>{createElement(Component, Object.assign({ ref }, props))}</ErrorBoundary>
         );
         out = forwardRef(Wrapped);
     }

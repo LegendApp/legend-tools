@@ -3,7 +3,7 @@
     "description": "@legendapp/tools",
     "sideEffects": false,
     "private": true,
-    "version": "2.0.0-alpha.3",
+    "version": "2.0.0-alpha.14",
     "license": "MIT",
     "main": "./index.js",
     "types": "./index.d.ts",
@@ -12,7 +12,7 @@
     ],
     "exports": {
         ".": "./index.js",
-        "./react": "./react/index.js"
+        "./react": "./react.js"
     },
     "scripts": {
         "clean": "rimraf dist",
@@ -36,16 +36,6 @@
         "react",
         "react-native",
         "hooks"
-    ],
-    "size-limit": [
-        {
-            "path": "dist/legend-tools.cjs.production.min.js",
-            "limit": "10 KB"
-        },
-        {
-            "path": "dist/legend-tools.esm.js",
-            "limit": "10 KB"
-        }
     ],
     "devDependencies": {
         "@size-limit/preset-small-lib": "^7.0.8",
