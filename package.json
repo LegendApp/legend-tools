@@ -21,7 +21,9 @@
         "test": "jest",
         "size": "size-limit",
         "analyze": "size-limit --why",
-        "publish": "npm run build && cd dist && npm publish"
+        "publish:manual": "npm run build && cd dist && npm publish",
+        "publish:minor": "npm version minor && npm run build && cd dist && npm publish",
+        "publish:patch": "npm version patch && npm run build && cd dist && npm publish"
     },
     "peerDependencies": {
         "react": ">=16"
